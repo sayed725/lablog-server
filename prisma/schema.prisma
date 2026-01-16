@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  Admin
+  Student
+}
+
+model User {
+  id       String  @id @default(ulid())
+  name     String
+  email    String  @unique
+  password String
+  role     Role    @default(Student)
+  isActive Boolean @default(true)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  usageLogs UsageLog[]
+}
+
+enum EquipmentStatus {
+  AVAILABLE
+  IN_USE
+  MAINTENANCE
+}
+
+model Equipment {
+  id           String          @id @default(uuid())
+  name         String
+  serialNumber String          @unique
+  status       EquipmentStatus @default(AVAILABLE)
+  location     String
+  metadata     Json?
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  usageLogs UsageLog[]
+}
+
+model UsageLog {
+  id          String @id @default(uuid())
+  userId      String
+  equipmentId String
+
+  startTime DateTime
+  endTime   DateTime?
+  purpose   String
+  notes     String?
+
+  user      User      @relation(fields: [userId], references: [id])
+  equipment Equipment @relation(fields: [equipmentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
