@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-const auth = (roles?: Role[]) => {
+const auth = (roles?: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     // Authentication and authorization logic here
 
@@ -24,9 +24,9 @@ const auth = (roles?: Role[]) => {
 
       req.user = decoded as JwtPayload;
 
-    //   if (roles && !roles.includes(req.user.role)) {
-    //     return res.send("Forbidden");
-    //   }
+      if (roles && !roles.includes(req.user.role)) {
+        return res.send("Forbidden");
+      }
 
       next();
     } catch (error) {
