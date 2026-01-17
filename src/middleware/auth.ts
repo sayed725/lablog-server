@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Role } from "../generated/prisma/enums";
+// import { Role } from "../generated/prisma/enums";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 declare global {

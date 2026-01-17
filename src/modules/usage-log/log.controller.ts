@@ -18,7 +18,7 @@ const createUsageLog: RequestHandler = async (req, res) => {
 const getUsageLogs: RequestHandler = async (req, res) => {
   try {
     const log = await prisma.usageLog.findMany({
-      include: { user: true, equipment: true },
+      include: { equipment: true },
     });
 
     res.send({ message: "logs", data: log });
