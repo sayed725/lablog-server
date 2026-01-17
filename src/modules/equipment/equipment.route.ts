@@ -1,17 +1,17 @@
 import { Router } from "express";
 import { equipmentController } from "./equipment.controller";
-// import auth from "../../middleware/auth";
+import auth from "../../middleware/auth";
 
 const equipmentRouter = Router();
 
 equipmentRouter.post(
   "/",
-//   auth("equipment", "create"),
+  auth("equipment", "create"),
   equipmentController.createEquipment
 );
 equipmentRouter.get(
   "/",
-//   auth("equipment", "read"),
+  auth("equipment", "read"),
   equipmentController.getEquipments
 );
 
