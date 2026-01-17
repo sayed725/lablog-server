@@ -30,6 +30,8 @@ model Equipment {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   usageLogs UsageLog[]
+
+  @@map("equipments")
 }
 
 model UsageLog {
@@ -47,6 +49,8 @@ model UsageLog {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("usagelog")
 }
 
 model User {
