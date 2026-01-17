@@ -13,6 +13,8 @@ app.use(
 );
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
+// After modify url 
+// app.all("/api/v1/auth/*splat", toNodeHandler(auth));
 
 app.use(express.json());
 
